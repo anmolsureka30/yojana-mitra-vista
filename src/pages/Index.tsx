@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,6 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Mic, MicOff, ArrowRight, Users, Shield, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import Autoplay from "embla-carousel-autoplay";
 
 const Index = () => {
   const [isListening, setIsListening] = useState(false);
@@ -150,6 +151,14 @@ const Index = () => {
     }
   ];
 
+  const plugin = useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: false })
+  );
+
+  const pluginBackground = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: false })
+  );
+
   return (
     <div className="min-h-screen bg-gradient-india">
       {/* Hero Section with Enhanced Animated Carousel */}
@@ -158,7 +167,11 @@ const Index = () => {
         
         {/* Enhanced Background Carousel */}
         <div className="absolute inset-0 opacity-20">
-          <Carousel className="w-full h-full" opts={{ loop: true, duration: 80 }}>
+          <Carousel 
+            className="w-full h-full" 
+            opts={{ loop: true, dragFree: false }}
+            plugins={[pluginBackground.current]}
+          >
             <CarouselContent className="h-full">
               {schemeImages.map((image, index) => (
                 <CarouselItem key={index} className="h-full">
@@ -166,7 +179,7 @@ const Index = () => {
                     <img
                       src={image.src}
                       alt={image.alt}
-                      className="w-full h-full object-cover rounded-lg animate-fade-in shadow-2xl"
+                      className="w-full h-full object-cover rounded-lg shadow-2xl transition-all duration-700 ease-in-out"
                     />
                   </div>
                 </CarouselItem>
@@ -192,17 +205,21 @@ const Index = () => {
                 
                 {/* Enhanced Featured Schemes Carousel */}
                 <div className="mt-8 mb-8">
-                  <Carousel className="w-full max-w-xs sm:max-w-md lg:max-w-lg mx-auto" opts={{ loop: true }}>
+                  <Carousel 
+                    className="w-full max-w-xs sm:max-w-md lg:max-w-lg mx-auto" 
+                    opts={{ loop: true, dragFree: false }}
+                    plugins={[plugin.current]}
+                  >
                     <CarouselContent>
                       {schemeImages.map((image, index) => (
                         <CarouselItem key={index}>
-                          <Card className="bg-white/15 backdrop-blur-md border-white/30 shadow-xl">
+                          <Card className="bg-white/15 backdrop-blur-md border-white/30 shadow-xl transition-all duration-500 ease-in-out">
                             <CardContent className="p-4 sm:p-6">
                               <div className="aspect-video w-full mb-4 overflow-hidden rounded-lg">
                                 <img
                                   src={image.src}
                                   alt={image.alt}
-                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                  className="w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-105"
                                 />
                               </div>
                               <p className="text-white text-sm sm:text-base font-medium text-center">{image.title}</p>
@@ -211,8 +228,6 @@ const Index = () => {
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    <CarouselPrevious className="text-white border-white/40 hover:bg-white/20 left-2 sm:left-4" />
-                    <CarouselNext className="text-white border-white/40 hover:bg-white/20 right-2 sm:right-4" />
                   </Carousel>
                 </div>
               </div>
