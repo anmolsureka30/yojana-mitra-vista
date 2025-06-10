@@ -167,9 +167,9 @@ const Index = () => {
           <div className="items-center flex flex-wrap">
             <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
               <div className="fade-in-up">
-                <h1 className="text-4xl lg:text-6xl mb-6 leading-tight font-extrabold md:text-7xl text-zinc-800">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl mb-6 leading-tight font-extrabold text-zinc-800">
                   Welcome to
-                  <span className="block bg-clip-text bg-gradient-to-r from-white to-yellow-200 mt-2 text-7xl text-amber-200">
+                  <span className="block bg-clip-text bg-gradient-to-r from-white to-yellow-200 mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-amber-200">
                     YojanaMitra
                   </span>
                 </h1>
