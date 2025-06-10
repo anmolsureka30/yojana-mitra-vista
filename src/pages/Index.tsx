@@ -169,7 +169,7 @@ const Index = () => {
               <div className="fade-in-up">
                 <h1 className="text-4xl lg:text-6xl mb-6 leading-tight font-extrabold md:text-7xl text-zinc-800">
                   Welcome to
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-yellow-200 mt-2">
+                  <span className="block bg-clip-text bg-gradient-to-r from-white to-yellow-200 mt-2 text-7xl text-amber-200">
                     YojanaMitra
                   </span>
                 </h1>
