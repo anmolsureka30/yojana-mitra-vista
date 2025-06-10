@@ -1,10 +1,10 @@
-
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Mic, MicOff, ArrowRight, Users, Shield, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,40 @@ const Index = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const recognitionRef = useRef<any>(null);
+
+  // Government scheme images for the carousel
+  const schemeImages = [
+    {
+      src: "/lovable-uploads/2acf1a34-7576-40a6-83ea-9beb202f4a3d.png",
+      alt: "Government Schemes Overview",
+      title: "Government Schemes"
+    },
+    {
+      src: "/lovable-uploads/7d7b7bf3-a641-4069-abce-bac2369d3d48.png",
+      alt: "Various Government Schemes",
+      title: "Citizen Services"
+    },
+    {
+      src: "/lovable-uploads/d30dec90-1ddb-4b80-a780-ed1e64636a84.png",
+      alt: "Government Investment Schemes",
+      title: "Investment Programs"
+    },
+    {
+      src: "/lovable-uploads/4c82267e-96fc-4e8a-aebd-d97361662a9f.png",
+      alt: "G20 India Initiative",
+      title: "G20 India 2023"
+    },
+    {
+      src: "/lovable-uploads/faa25632-44a5-4430-9705-d5ff9a1b1013.png",
+      alt: "India.gov.in Portal",
+      title: "National Portal"
+    },
+    {
+      src: "/lovable-uploads/15e12ef7-f207-43bc-b3ed-124fbee6585d.png",
+      alt: "IRCTC Services",
+      title: "Railway Services"
+    }
+  ];
 
   const startVoiceInput = () => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -118,11 +152,32 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-india">
-      {/* Hero Section */}
-      <div className="relative pt-20 pb-32 flex content-center items-center justify-center min-h-screen">
+      {/* Hero Section with Animated Carousel */}
+      <div className="relative pt-20 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden">
         <div className="absolute top-0 w-full h-full bg-gradient-to-br from-saffron/20 to-indian-green/20"></div>
         
-        <div className="container relative mx-auto px-4">
+        {/* Animated Background Carousel */}
+        <div className="absolute inset-0 opacity-10">
+          <Carousel className="w-full h-full" opts={{ loop: true, duration: 60 }}>
+            <CarouselContent className="h-full">
+              {schemeImages.map((image, index) => (
+                <CarouselItem key={index} className="h-full">
+                  <div className="relative h-full w-full flex items-center justify-center">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="max-w-full max-h-full object-contain animate-fade-in"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4 opacity-50 hover:opacity-100" />
+            <CarouselNext className="right-4 opacity-50 hover:opacity-100" />
+          </Carousel>
+        </div>
+        
+        <div className="container relative mx-auto px-4 z-10">
           <div className="items-center flex flex-wrap">
             <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
               <div className="fade-in-up">
@@ -136,6 +191,30 @@ const Index = () => {
                   Your trusted companion for accessing government schemes and services. 
                   Empowering every Indian citizen with ease and dignity.
                 </p>
+                
+                {/* Featured Schemes Carousel */}
+                <div className="mt-8 mb-8">
+                  <Carousel className="w-full max-w-md mx-auto" opts={{ loop: true }}>
+                    <CarouselContent>
+                      {schemeImages.map((image, index) => (
+                        <CarouselItem key={index}>
+                          <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+                            <CardContent className="p-4">
+                              <img
+                                src={image.src}
+                                alt={image.alt}
+                                className="w-full h-32 object-contain rounded-lg mb-2"
+                              />
+                              <p className="text-white text-sm font-medium">{image.title}</p>
+                            </CardContent>
+                          </Card>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="text-white border-white/30 hover:bg-white/20" />
+                    <CarouselNext className="text-white border-white/30 hover:bg-white/20" />
+                  </Carousel>
+                </div>
               </div>
             </div>
           </div>
